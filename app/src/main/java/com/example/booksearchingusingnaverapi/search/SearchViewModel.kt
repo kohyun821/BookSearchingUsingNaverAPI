@@ -7,24 +7,30 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SearchViewModel : ViewModel() {
-    var keyword: MutableLiveData<String> = MutableLiveData("ㅁㄴㅇㄹ")
-
+    var keyword: MutableLiveData<String> = MutableLiveData("")
+    val books = MutableLiveData<List<BookItem>>()
     var inputKeyword : MutableLiveData<Boolean> = MutableLiveData(false)
 
+    fun searching2(){
+        println("searching2 입력값${keyword.value}입니다.")
+        getBooks(keyword.value?:"")
+    }
     fun searching(){
-        println("버튼 클릭!")
-        getBooks(keyword.value ?: "")
+        println("searching 입력값${keyword.value}입니다.")
+        getBooks(keyword.value?:"")
     }
 
     private fun getBooks(query: String) {
-        val clientId = "****"
-        val clientSecret = "****"
+        val clientId = "*****"
+        val clientSecret = "*****"
 
         RetrofitClient.naverAPI.searchBooks(clientId, clientSecret, query).enqueue(object : Callback<BooksResponse> {
             override fun onResponse(call: Call<BooksResponse>, response: Response<BooksResponse>) {
                 if (response.isSuccessful) {
-                    val books = response.body()?.items ?: emptyList()
-                    println("검색 결과: $books")
+                    val booksResponse = response.body()?.items ?: emptyList()
+                    books.value = booksResponse
+                    println("booksResponse 검색 결과: $booksResponse")
+                    println("books.value검색 결과: ${books.value}")
                 } else {
                     println("검색 실패: ${response.errorBody()}")
                 }

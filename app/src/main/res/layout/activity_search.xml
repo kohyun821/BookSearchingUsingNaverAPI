@@ -17,23 +17,40 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="wrap_content"
             android:background="@color/ToolBarBlue"
             android:minHeight="?attr/actionBarSize"
             app:contentInsetStart="0dp">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/title"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                android:textStyle="bold" />
-        </androidx.appcompat.widget.Toolbar>
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notosanskr_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_reKeyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/re"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notosanskr_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"

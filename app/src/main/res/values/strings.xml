@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">BookSearchingUsingNaverAPI</string>
     <string name="title">네이버 API를 이용한 책 검색</string>
+    <string name="re">최근 검색어</string>
     <string name="search">검색</string>
     <string name="KeyWord">검색할 책 이름을 입력해 주세요</string>
     <string name="header_author">저자 : %s</string>
     <string name="header_publisher">출판사 : %s</string>
     <string name="header_discount">가격 : %s</string>
+    <string name="recent_search">최근 검색어</string>
 </resources>

@@ -8,8 +8,10 @@ import com.bumptech.glide.Glide
 import com.example.booksearchingusingnaverapi.R
 import com.example.booksearchingusingnaverapi.databinding.ItemSearchResultBinding
 
-class SearchBooksAdapter(private val books: MutableList<BookItem>) :
-    RecyclerView.Adapter<SearchBooksAdapter.BookViewHolder>() {
+class SearchBooksAdapter(
+    private val books: MutableList<BookItem>,
+    private val onItemClickListener: OnItemClickListener
+    ): RecyclerView.Adapter<SearchBooksAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding: ItemSearchResultBinding = DataBindingUtil.inflate(
@@ -34,11 +36,26 @@ class SearchBooksAdapter(private val books: MutableList<BookItem>) :
     }
 
     inner class BookViewHolder(val binding: ItemSearchResultBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClick(books[position])
+                }
+            }
+        }
+    }
 
     fun updateBooks(newBooks: List<BookItem>) {
         this.books.clear()
         this.books.addAll(newBooks)
         notifyDataSetChanged()
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(bookItem: BookItem)
+    }
+
 }
+

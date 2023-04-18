@@ -2,7 +2,6 @@ package com.example.booksearchingusingnaverapi.search
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.booksearchingusingnaverapi.R
 import com.example.booksearchingusingnaverapi.databinding.ActivityRecentKeywordBinding
 
 

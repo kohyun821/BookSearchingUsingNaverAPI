@@ -1,12 +1,20 @@
 package com.example.booksearchingusingnaverapi.search
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.booksearchingusingnaverapi.R
+import com.example.booksearchingusingnaverapi.databinding.ActivityRecentKeywordBinding
+
 
 class RecentKeywordActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRecentKeywordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recent_keyword)
+        binding = ActivityRecentKeywordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.appbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }

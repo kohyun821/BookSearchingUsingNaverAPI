@@ -2,12 +2,10 @@ package com.example.booksearchingusingnaverapi.search
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.booksearchingusingnaverapi.R
 import com.example.booksearchingusingnaverapi.databinding.ActivitySearchBinding
 
@@ -23,7 +21,6 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         binding.viewModel = searchViewModel
         binding.lifecycleOwner=this
-        binding.activity=this
         initRecyclerView()
         observeBooks()
 
@@ -49,8 +46,6 @@ class SearchActivity : AppCompatActivity() {
         binding.tvReKeyword.setOnClickListener {
             //화면 이동!
             startActivity(Intent(this,RecentKeywordActivity::class.java))
-//            val intent = Intent(this, RecentKeywordActivity::class.java)
-//            startActivity(intent)
         }
 
     }

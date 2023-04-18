@@ -18,4 +18,7 @@ interface RecentSearchDao {
 
     @Delete
     fun delete(recentSearch: RecentSearch)
+
+    @Query("DELETE FROM recent_searches WHERE keyword = :keyword")
+    fun deleteByKeyword(keyword: String)
 }

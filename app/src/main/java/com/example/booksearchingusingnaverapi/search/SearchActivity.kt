@@ -21,8 +21,9 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         binding.viewModel = searchViewModel
         binding.lifecycleOwner=this
+
+        // RecyclerView 초기화
         initRecyclerView()
-        observeBooks()
 
         val searchView = binding.searchView
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -43,14 +44,15 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
+        //최근 검색어 화면 이동!
         binding.tvReKeyword.setOnClickListener {
-            //최근 검색어 화면 이동!
             startActivity(Intent(this,RecentKeywordActivity::class.java))
         }
 
     }
-    private fun observeBooks() {
-        println("observeBooks 실행!")
+
+    private fun initRecyclerView() {
+        println("initRecyclerView 실행!")
         booksAdapter = SearchBooksAdapter(mutableListOf(),object : SearchBooksAdapter.OnItemClickListener{
             override fun onItemClick(bookItem: BookItem) {
                 val intent = Intent(this@SearchActivity, WebviewActivity::class.java)
@@ -59,15 +61,11 @@ class SearchActivity : AppCompatActivity() {
             }
         })
         binding.recyclerview.adapter = booksAdapter
-    }
-
-    private fun initRecyclerView() {
-        println("initRecyclerView 실행!")
 
         // 리사이클러뷰 레이아웃 매니저 설정
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
-        searchViewModel.books.observe(this) { books ->
+        searchViewModel.bookItems.observe(this) { books ->
             booksAdapter.updateBooks(books)
         }
     }

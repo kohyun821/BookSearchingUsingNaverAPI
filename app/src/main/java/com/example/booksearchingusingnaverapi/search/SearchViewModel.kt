@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.booksearchingusingnaverapi.search.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
@@ -13,16 +14,24 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SearchViewModel(application: Application) : AndroidViewModel(application){
-    var keyword: MutableLiveData<String> = MutableLiveData("")
+    var keyword: MutableLiveData<String> = MutableLiveData("가나다라")
     val books = MutableLiveData<List<BookItem>>()
     var inputKeyword : MutableLiveData<Boolean> = MutableLiveData(false)
     private val recentSearchDao = AppDatabase.getDatabase(application).recentSearchDao()
     val recentSearches: LiveData<List<RecentSearch>> = recentSearchDao.getAll()
 
+    // books LiveData에 대한 옵저버
+    val bookItems: LiveData<List<BookItem>> = books.map { booksResponse ->
+        booksResponse ?: emptyList()
+    }
 
     fun searching2(){
         println("searching2 입력값${keyword.value}입니다.")
         getBooks(keyword.value?:"")
+    }
+    fun searching3(){
+//        binding.searchView.setQuery(keyword.value, false) // searchView의 텍스트를 갱신합니다.
+        searching()
     }
     fun searching(){
         println("searching 입력값${keyword.value}입니다.")
@@ -46,7 +55,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
                     println("검색 실패: ${response.errorBody()}")
                 }
             }
-
             override fun onFailure(call: Call<BooksResponse>, t: Throwable) {
                 println("API 요청 실패: $t")
             }
@@ -57,10 +65,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
     private fun addRecentSearch(keyword: String) {
         println("addRecentSearch 실행!")
         viewModelScope.launch(Dispatchers.IO) {
+            recentSearchDao.deleteByKeyword(keyword)
             recentSearchDao.insert(RecentSearch(keyword = keyword))
         }
     }
-
 
     // 검색어 삭제
     fun deleteRecentSearch(recentSearch: RecentSearch) {
@@ -68,4 +76,5 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
             recentSearchDao.delete(recentSearch)
         }
     }
+
 }

@@ -23,7 +23,7 @@ class RecentKeywordActivity : AppCompatActivity() {
         adapter = RecentKeywordAdapter(object : OnRecentKeywordClickListener {
             override fun onKeywordClick(keyword: String) {
                 viewModel.keyword.value = keyword
-                viewModel.searching()
+                viewModel.searching3()
                 finish()
             }
             override fun onKeywordDelete(recentSearch: RecentSearch) {

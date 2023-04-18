@@ -44,14 +44,20 @@ class SearchActivity : AppCompatActivity() {
         })
 
         binding.tvReKeyword.setOnClickListener {
-            //화면 이동!
+            //최근 검색어 화면 이동!
             startActivity(Intent(this,RecentKeywordActivity::class.java))
         }
 
     }
     private fun observeBooks() {
         println("observeBooks 실행!")
-        booksAdapter = SearchBooksAdapter(mutableListOf())
+        booksAdapter = SearchBooksAdapter(mutableListOf(),object : SearchBooksAdapter.OnItemClickListener{
+            override fun onItemClick(bookItem: BookItem) {
+                val intent = Intent(this@SearchActivity, WebviewActivity::class.java)
+                intent.putExtra("url", bookItem.link)
+                startActivity(intent)
+            }
+        })
         binding.recyclerview.adapter = booksAdapter
     }
 

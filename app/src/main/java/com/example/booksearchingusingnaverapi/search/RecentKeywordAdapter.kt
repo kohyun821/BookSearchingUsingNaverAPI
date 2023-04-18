@@ -1,13 +1,15 @@
 package com.example.booksearchingusingnaverapi.search
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.booksearchingusingnaverapi.R
 import com.example.booksearchingusingnaverapi.databinding.ItemResentKeyworkBinding
+import com.example.booksearchingusingnaverapi.search.OnRecentKeywordClickListener
 
-class RecentKeywordAdapter : RecyclerView.Adapter<RecentKeywordAdapter.ViewHolder>() {
+class RecentKeywordAdapter(private val listener: OnRecentKeywordClickListener) : RecyclerView.Adapter<RecentKeywordAdapter.ViewHolder>()  {
     private val items = mutableListOf<RecentSearch>()
 
     fun setData(data: List<RecentSearch>) {
@@ -23,7 +25,7 @@ class RecentKeywordAdapter : RecyclerView.Adapter<RecentKeywordAdapter.ViewHolde
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -32,5 +34,17 @@ class RecentKeywordAdapter : RecyclerView.Adapter<RecentKeywordAdapter.ViewHolde
         holder.binding.recentKeyword = items[position]
     }
 
-    class ViewHolder(val binding: ItemResentKeyworkBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemResentKeyworkBinding, private val listener: OnRecentKeywordClickListener) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                listener.onKeywordClick(binding.recentKeyword?.keyword ?: "")
+            }
+            binding.ivKeywordDelete.setOnClickListener {
+                binding.recentKeyword?.let { recentSearch ->
+                    listener.onKeywordDelete(recentSearch)
+                }
+            }
+        }
+    }
+
 }

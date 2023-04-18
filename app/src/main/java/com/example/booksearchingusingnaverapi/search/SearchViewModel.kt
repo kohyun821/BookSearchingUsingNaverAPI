@@ -32,8 +32,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
     private fun getBooks(query: String) {
         val clientId = "CEe4IT2zVqDLPPEIdaye"
         val clientSecret = "u0xA7otC7o"
-
-        addRecentSearch(query) // 최근 검색어 추가
+        if(query.trim() != ""){
+            addRecentSearch(query) // 최근 검색어 추가
+        }
         RetrofitClient.naverAPI.searchBooks(clientId, clientSecret, query).enqueue(object : Callback<BooksResponse> {
             override fun onResponse(call: Call<BooksResponse>, response: Response<BooksResponse>) {
                 if (response.isSuccessful) {
@@ -59,6 +60,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
             recentSearchDao.insert(RecentSearch(keyword = keyword))
         }
     }
+
 
     // 검색어 삭제
     fun deleteRecentSearch(recentSearch: RecentSearch) {

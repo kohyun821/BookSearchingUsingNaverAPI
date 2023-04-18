@@ -132,8 +132,6 @@ w
 G.idea/sonarlint/issuestore/7/7/77014cbd921af8ca5cdef5e9635746df440aa405,3\d\3d6eba077a77a239b9c10969df928b3837084a42
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-Å
-Qapp/src/main/java/com/example/booksearchingusingnaverapi/search/RetrofitClient.kt,e\e\ee5d64c23030f2b9455b0bba226a06fc06199078
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 X
@@ -142,5 +140,3 @@ X
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
-Ö
-Uapp/src/main/java/com/example/booksearchingusingnaverapi/search/SearchBooksAdapter.kt,6\9\696625a7974346ffbfafa57645183524920dc4e6

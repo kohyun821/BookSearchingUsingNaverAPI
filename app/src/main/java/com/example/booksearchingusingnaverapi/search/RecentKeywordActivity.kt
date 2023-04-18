@@ -20,8 +20,17 @@ class RecentKeywordActivity : AppCompatActivity() {
         binding.appbar.setNavigationOnClickListener {//뒤로가기
             finish()
         }
+        adapter = RecentKeywordAdapter(object : OnRecentKeywordClickListener {
+            override fun onKeywordClick(keyword: String) {
+                viewModel.keyword.value = keyword
+                viewModel.searching()
+                finish()
+            }
+            override fun onKeywordDelete(recentSearch: RecentSearch) {
+                viewModel.deleteRecentSearch(recentSearch)
+            }
+        })
 
-        adapter = RecentKeywordAdapter()
         binding.rvRecntkeywork.layoutManager = LinearLayoutManager(this)
         binding.rvRecntkeywork.adapter = adapter
 

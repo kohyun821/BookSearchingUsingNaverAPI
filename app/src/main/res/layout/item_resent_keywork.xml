@@ -48,8 +48,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="04. 18." />
 
-
-<!--        android:text="@{recentKeyword.createdAt.toLocalDate().toString()}"-->
         <ImageView
             android:id="@+id/iv_keyword_delete"
             android:layout_width="wrap_content"

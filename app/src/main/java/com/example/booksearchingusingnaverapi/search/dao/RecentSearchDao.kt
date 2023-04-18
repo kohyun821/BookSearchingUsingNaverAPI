@@ -10,7 +10,7 @@ import com.example.booksearchingusingnaverapi.search.RecentSearch
 
 @Dao
 interface RecentSearchDao {
-    @Query("SELECT * FROM recent_searches ORDER BY createdAt DESC")
+    @Query("SELECT * FROM recent_searches ORDER BY createdAt DESC limit 10")
     fun getAll(): LiveData<List<RecentSearch>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

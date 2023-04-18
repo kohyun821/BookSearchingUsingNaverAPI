@@ -18,19 +18,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
     var inputKeyword : MutableLiveData<Boolean> = MutableLiveData(false)
     private val recentSearchDao = AppDatabase.getDatabase(application).recentSearchDao()
     val recentSearches: LiveData<List<RecentSearch>> = recentSearchDao.getAll()
-    // 검색어 추가
-    fun addRecentSearch(keyword: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            recentSearchDao.insert(RecentSearch(keyword = keyword))
-        }
-    }
 
-    // 검색어 삭제
-    fun deleteRecentSearch(recentSearch: RecentSearch) {
-        viewModelScope.launch(Dispatchers.IO) {
-            recentSearchDao.delete(recentSearch)
-        }
-    }
 
     fun searching2(){
         println("searching2 입력값${keyword.value}입니다.")
@@ -42,8 +30,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
     }
 
     private fun getBooks(query: String) {
-        val clientId = "*****"
-        val clientSecret = "*****"
+        val clientId = "CEe4IT2zVqDLPPEIdaye"
+        val clientSecret = "u0xA7otC7o"
 
         addRecentSearch(query) // 최근 검색어 추가
         RetrofitClient.naverAPI.searchBooks(clientId, clientSecret, query).enqueue(object : Callback<BooksResponse> {
@@ -62,5 +50,20 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
                 println("API 요청 실패: $t")
             }
         })
+    }
+
+    // 검색어 추가
+    private fun addRecentSearch(keyword: String) {
+        println("addRecentSearch 실행!")
+        viewModelScope.launch(Dispatchers.IO) {
+            recentSearchDao.insert(RecentSearch(keyword = keyword))
+        }
+    }
+
+    // 검색어 삭제
+    fun deleteRecentSearch(recentSearch: RecentSearch) {
+        viewModelScope.launch(Dispatchers.IO) {
+            recentSearchDao.delete(recentSearch)
+        }
     }
 }

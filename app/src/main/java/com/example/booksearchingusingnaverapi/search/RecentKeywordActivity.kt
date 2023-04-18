@@ -1,5 +1,8 @@
 package com.example.booksearchingusingnaverapi.search
 
+import SearchActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +25,12 @@ class RecentKeywordActivity : AppCompatActivity() {
         }
         adapter = RecentKeywordAdapter(object : OnRecentKeywordClickListener {
             override fun onKeywordClick(keyword: String) {
-                viewModel.keyword.value = keyword
-                viewModel.searching3()
+                val intent = Intent(this@RecentKeywordActivity, SearchActivity::class.java).apply {
+                    putExtra("searchKeyword", keyword)
+                    println("onKeywordClick 실행 입니다.")
+                    println("onKeywordClick 실행으로 ${keyword}을 넘겨 입니다.")
+                }
+                setResult(RESULT_OK,intent)
                 finish()
             }
             override fun onKeywordDelete(recentSearch: RecentSearch) {

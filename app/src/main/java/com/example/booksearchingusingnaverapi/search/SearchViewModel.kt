@@ -14,9 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SearchViewModel(application: Application) : AndroidViewModel(application){
-    var keyword: MutableLiveData<String> = MutableLiveData("가나다라")
+    var keyword: MutableLiveData<String> = MutableLiveData("")
     val books = MutableLiveData<List<BookItem>>()
-    var inputKeyword : MutableLiveData<Boolean> = MutableLiveData(false)
     private val recentSearchDao = AppDatabase.getDatabase(application).recentSearchDao()
     val recentSearches: LiveData<List<RecentSearch>> = recentSearchDao.getAll()
 
@@ -29,13 +28,13 @@ class SearchViewModel(application: Application) : AndroidViewModel(application){
         println("searching2 입력값${keyword.value}입니다.")
         getBooks(keyword.value?:"")
     }
-    fun searching3(){
-//        binding.searchView.setQuery(keyword.value, false) // searchView의 텍스트를 갱신합니다.
-        searching()
+    fun searching3(query_keyword: String){
+        println("searching3 입력값${query_keyword}입니다.")
+        getBooks(query_keyword)
     }
     fun searching(){
-        println("searching 입력값${keyword.value}입니다.")
-        getBooks(keyword.value?:"")
+        println("searching 입력값${keyword.value.toString()}입니다.")
+        getBooks(keyword.value.toString())
     }
 
     private fun getBooks(query: String) {

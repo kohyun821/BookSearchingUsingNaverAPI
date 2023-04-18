@@ -58,13 +58,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <androidx.appcompat.widget.SearchView
+            <EditText
                 android:id="@+id/searchView"
+                android:text="@={viewModel.keyword}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:iconifiedByDefault="false"
-                app:queryHint="검색어를 입력하시오"/>
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:hint="검색어를 입력하시오"/>
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/searchView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                app:iconifiedByDefault="false"-->
+<!--                app:queryHint="검색어를 입력하시오"/>-->
 
             <Button
                 android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.booksearchingusingnaverapi.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +45,13 @@ class SearchActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        binding.tvReKeyword.setOnClickListener {
+            //화면 이동!
+            startActivity(Intent(this,RecentKeywordActivity::class.java))
+//            val intent = Intent(this, RecentKeywordActivity::class.java)
+//            startActivity(intent)
+        }
 
     }
     private fun observeBooks() {

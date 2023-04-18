@@ -21,8 +21,8 @@ class SearchViewModel : ViewModel() {
     }
 
     private fun getBooks(query: String) {
-        val clientId = "*****"
-        val clientSecret = "*****"
+        val clientId = "CEe4IT2zVqDLPPEIdaye"
+        val clientSecret = "u0xA7otC7o"
 
         RetrofitClient.naverAPI.searchBooks(clientId, clientSecret, query).enqueue(object : Callback<BooksResponse> {
             override fun onResponse(call: Call<BooksResponse>, response: Response<BooksResponse>) {
